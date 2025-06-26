@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Car Auction{% endblock %}
+
+{% block content %}
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+  body {
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .login-container {
+    max-width: 450px;
+    margin: 80px auto;
+    background-color: rgba(255, 255, 255, 0.97);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .login-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1e3c72;
+  }
+
+  .form-control {
+    border-radius: 8px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #1e3c72;
+    border: none;
+    transition: background 0.3s;
+  }
+
+  .btn-primary:hover {
+    background-color: #163261;
+  }
+
+  .form-text-links {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .form-text-links a {
+    margin: 0 10px;
+    color: #1e3c72;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .form-text-links a:hover {
+    text-decoration: underline;
+  }
+
+  .input-group-text {
+    background-color: #e9ecef;
+    border-radius: 0 8px 8px 0;
+  }
+</style>
+
+<div class="login-container">
+  <h2><i class="fas fa-user-lock"></i> Log In</h2>
+  <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <div class="mb-3"style="color:black;">
+      <label for="username" class="form-label"><i class="fas fa-user"></i> Username</label>
+      <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+
+    <div class="mb-3"style="color:black;">
+      <label for="password" class="form-label"><i class="fas fa-lock"></i> Password</label>
+      <div class="input-group">
+        <input type="password" class="form-control" id="password" name="password" required>
+        <span class="input-group-text" onclick="togglePassword()" style="cursor: pointer;">
+          <i id="toggleIcon" class="fas fa-eye"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="mb-3 form-check"style="color:black;">
+      <input type="checkbox" class="form-check-input" id="rememberMe">
+      <label class="form-check-label" for="rememberMe">Remember Me</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Log In</button>
+
+    {% if form.errors %}
+      <div class="alert alert-danger mt-3"style="color:black;">
+        <strong>Error:</strong> Invalid username or password.
+      </div>
+    {% endif %}
+  </form>
+
+  <div class="form-text-links mt-4"style="color:black;">
+    <a href="{% url 'signup' %}"><i class="fas fa-user-plus"></i> Register</a> |
+    <a href="{% url 'login' %}"><i class="fas fa-key"></i> Forgot Password?</a>
+  </div>
+</div>
+
+<script>
+  function togglePassword() {
+    const passwordInput = document.getElementById("password");
+    const icon = document.getElementById("toggleIcon");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      icon.classList.remove("fa-eye");
+      icon.classList.add("fa-eye-slash");
+    } else {
+      passwordInput.type = "password";
+      icon.classList.remove("fa-eye-slash");
+      icon.classList.add("fa-eye");
+    }
+  }
+</script>
+{% endblock %}

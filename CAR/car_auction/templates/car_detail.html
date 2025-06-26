@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Car Detail{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container mt-4">
+    <h1 class="text-center">{{ car.title }}</h1>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <img src="{{ car.image.url }}" class="img-fluid mb-3 border rounded" alt="{{ car.title }}">
+        </div>
+        <div class="col-md-6">
+            <p><strong>Description:</strong> {{ car.description }}</p>
+            <p><strong>Starting Bid:</strong> {{ car.starting_bid }}</p>
+            <p><strong>Auction End:</strong> {{ car.end_auction }}</p>
+
+            {% if not auction_active and winner %}
+                <p class="text-success mt-3">
+                    <strong>Winner:</strong> {{ winner.username }}
+                </p>
+            {% endif %}
+
+            {% if auction_active %}
+                <div class="alert alert-info mt-3" role="alert">
+                    Auction ends in: <span id="time-remaining"></span>
+                </div>
+            {% else %}
+                <p class="text-danger mt-4"><strong>The Auction has ended.</strong></p>
+            {% endif %}
+
+            {% if error_message %}
+                <div class="alert alert-warning mt-3" role="alert">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+
+            {% if auction_active %}
+                <h3 class="mt-4">Place a Bid</h3>
+                <form method="POST" action="{% url 'car_detail' car.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Your Bid</label>
+                        <input type="number" class="form-control" id="amount" name="amount" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Place Bid</button>
+                </form>
+            {% endif %}
+
+            <!-- Sold Button -->
+            {% if not auction_active and winner %}
+                <div class="mt-4">
+                    <button class="btn btn-secondary" disabled>This Car is Sold</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr class="mt-4">
+    <h3>Bid History</h3>
+
+    <ul class="list-group mt-3">
+        {% for bid in bids %}
+            <li class="list-group-item">
+                ${{ bid.amount }} by {{ bid.user.username }} at {{ bid.timestamp }}
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">No bids yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    const auctionEndTime = new Date("{{ car.end_auction|date:'Y-m-d H:i:s' }}").getTime();
+
+    function updateTimer() {
+        const now = new Date().getTime();
+        const distance = auctionEndTime - now;
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const timerElement = document.getElementById("time-remaining");
+        if (distance > 0) {
+            timerElement.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+        } else {
+            timerElement.innerHTML = "Auction has ended!";
+            clearInterval(x);
+        }
+    }
+
+    const x = setInterval(updateTimer, 1000);
+    updateTimer();
+</script>
+{% endblock %}

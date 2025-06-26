@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  body {
+    background-image: url('/static/images/about.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .section {
+    background-color: rgb(12, 131, 236);
+    padding: 50px 30px;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+
+  .highlight {
+    background-color:rgb(12, 131, 236);
+    border-left: 5px solid #007bff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+.section{
+  margin:20px;
+}
+  .icon-box {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .icon-box i {
+    font-size: 40px;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+
+  .cta-section {
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    color: white;
+    padding: 60px 40px;
+    border-radius: 0;
+    text-align: center;
+  }
+
+  .cta-section a {
+    background-color: white;
+    color: #007bff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .cta-section a:hover {
+    background-color:rgb(27, 131, 221);
+    color: #007bff;
+    transform: scale(1.05);
+  }
+
+  .testimonial {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin: 15px;
+    text-align: center;
+  }
+
+  .testimonial img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+
+  .wave {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+  }
+
+  .wave svg {
+    position: absolute;
+    bottom: 0;
+  }
+</style>
+
+<div class="container-fluid p-0">
+
+  <!-- About Section -->
+  <div class="section">
+    <div class="container">
+      <h2 class="text-center mb-4">About Car Auction</h2>
+      <p><strong>Car Auction</strong> is an advanced platform for auctioning vehicles online. From individual sellers to car dealers, we empower everyone to buy and sell cars in a fair and real-time bidding environment.</p>
+      <p>Founded in 2025, we’ve helped hundreds of users simplify and secure their car transactions.</p>
+
+
+      <p> <strong>🚗 What is Car Auction? </strong> <br/>
+Car Auction is a modern, transparent, and efficient online platform for auctioning used vehicles. Whether you’re an individual looking to sell your old car or a buyer trying to find the best deal, our platform bridges the gap between demand and supply in a user-friendly and secure environment.    </p>
+
+
+<p> <strong>    🎯 Our Purpose    </strong> <br/>
+     * We aim to simplify the traditional car-selling process by making it:<br/>
+
+     * Digital: No more classified ads or endless dealership visits.<br/>
+
+      * Competitive: Sellers get multiple bids; buyers get the best market price.<br/>
+
+      * Trustworthy: We verify users and listings to maintain high standards.  </p>
+
+
+
+      <p>   <strong> 🌟 What We Offer</strong>   <br/>
+🔍 Live Auctions: Real-time bidding where buyers compete transparently.<br/>
+
+📸 High-Quality Car Listings: Photos, specs, and ownership details.<br/>
+
+🛠️ Seller Dashboard: Manage your listings, bids, and sales history.<br/>
+
+👤 User Profiles: Track your purchases, sales, and favorite cars.<br/>
+
+📬 Email Notifications: Get alerts for bid activity and auction results.<br/>
+
+🔐 Secure Transactions: Verified accounts and SSL-secured platform.<br/>
+
+📅 Scheduled Auctions: Set your car for sale at a future date and time. </p>
+    </div>
+  </div>
+
+  <!-- SVG Divider -->
+  <div class="wave">
+    <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
+      <path d="M0.00,49.98 C181.20,150.00 349.50,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #007bff;"></path>
+    </svg>
+  </div>
+
+  <!-- Why Choose Us -->
+  <div class="section" style="background-color: #007bff; color: white;">
+    <div class="container">
+      <h3 class="text-center mb-4">Why Choose Us</h3>
+      <div class="row text-center">
+        <div class="col-md-4 icon-box">
+          <i class="bi bi-shield-check"></i>
+          <h5>Safe & Trusted</h5>
+          <p>All listings are verified for safety and transparency.</p>
+        </div>
+        <div class="col-md-4 icon-box">
+          <i class="bi bi-cash-stack"></i>
+          <h5>Great Value</h5>
+          <p>Live bidding helps you sell at the best market price.</p>
+        </div>
+        <div class="col-md-4 icon-box">
+          <i class="bi bi-rocket"></i>
+          <h5>Fast & Easy</h5>
+          <p>List or bid on a car in just a few clicks!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meet the Founder -->
+  <div class="section">
+    <div class="container">
+      <h3 class="text-center mb-4">Meet the Founder</h3>
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+          <img src="/static/images/founder.jpg" class="img-fluid rounded-circle" style="max-height: 200px;" alt="Founder">
+        </div>
+        <div class="col-md-8">
+          <p><strong>Vikas Pandey</strong>, founder of Car Auction, is a passionate full-stack developer pursuing a BCA at Dr. Ram Manohar Lohia Avadh University. With a strong grip on Python, Django, and frontend technologies, he created Car Auction to digitize car sales in India.</p>
+          <p>I’m a passionate <strong>BCA student</strong> at <strong>Dr. Ram Manohar Lohia Avadh University</strong> with a deep interest in full-stack web development, especially using Django and Python. I believe technology has the power to solve real-world problems — and my goal is to be part of that change.</p>
+        <p>I've worked on various projects, including a voice converter, an AI-powered desktop assistant, and now, a fully functioning <strong>Car Auction platform</strong> that leverages REST APIs and real-time bidding features. I also completed a 3-month internship as a <strong>Frontend Developer</strong> at <strong>SGTTYUG</strong>, where I contributed to the creation of an LMS system.</p>
+        <p>With skills in <strong>Python, C++, Django, HTML, CSS, JavaScript, and Bootstrap</strong>, I'm always excited to build scalable and user-friendly web applications that make an impact.</p>
+        <p>Beyond tech, I’m a <strong>state-level basketball player</strong> and enjoy playing badminton and cricket to keep my body and mind active.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission & Vision -->
+  {% comment %} <div class="section">
+    <div class="container">
+      <h3 class="text-center mb-4">Our Mission & Vision</h3>
+      <div class="row">
+        <div class="col-md-6 highlight">
+          <h5>Our Mission</h5>
+          <p>To make car buying and selling fast, fair, and fully digital — for everyone.</p>
+        </div>
+        <div class="col-md-6 highlight">
+          <h5>Our Vision</h5>
+          <p>To become India’s #1 trusted online car auction platform by 2030.</p>
+        </div>
+      </div>
+    </div>
+  </div> {% endcomment %}
+
+  <!-- How It Works -->
+  <div class="section">
+    <div class="container">
+      <h3 class="text-center mb-4">How It Works</h3>
+      <div class="row text-center">
+        <div class="col-md-3 icon-box">
+          <i class="bi bi-person-plus"></i>
+          <h6>1. Register</h6>
+          <p>Create an account to get started.</p>
+        </div>
+        <div class="col-md-3 icon-box">
+          <i class="bi bi-upload"></i>
+          <h6>2. Post Car</h6>
+          <p>List your vehicle with photos and details.</p>
+        </div>
+        <div class="col-md-3 icon-box">
+          <i class="bi bi-hammer"></i>
+          <h6>3. Start Bidding</h6>
+          <p>Engage in real-time auction sessions.</p>
+        </div>
+        <div class="col-md-3 icon-box">
+          <i class="bi bi-hand-thumbs-up"></i>
+          <h6>4. Seal the Deal</h6>
+          <p>Connect and close the sale directly!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="section" style="background-color:rgb(12, 131, 236);">
+    <div class="container">
+      <h3 class="text-center mb-4">What Our Users Say</h3>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="testimonial">
+            <img src="/static/images/user1.jpg" alt="User">
+            <p style="color:black;">"Smooth experience and got a great deal. Highly recommended!"</p>
+            <strong  style="color:black;">- Ramesh T.</strong>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial">
+            <img src="/static/images/user2.jpg" alt="User">
+            <p  style="color:black;">"I sold my old car in just two days — the bidding system rocks!"</p>
+            <strong  style="color:black;">- Sneha P.</strong>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial">
+            <img src="/static/images/user3.jpg" alt="User">
+            <p  style="color:black;">"User-friendly and efficient. Perfect for tech-savvy users."</p>
+            <strong  style="color:black;"> - Arjun M.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="cta-section">
+    <h2>Join Our Car Auction Community</h2>
+    <p>Register now to buy or sell your vehicle with confidence!</p>
+    <a href="{% url 'signup' %}">Get Started</a>
+  </div>
+
+</div>
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+{% endblock %}

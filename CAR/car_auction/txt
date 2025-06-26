@@ -1,0 +1,20 @@
+About Admin User 
+
+Username= admin 
+password = admin 
+
+
+
+
+
+Rest ful Api function checker way to 
+
+
+ Step 2: Open These API URLs in the Browser (or Postman)
+Get All Cars (GET)
+http://127.0.0.1:8000/api/cars/
+
+
+Get Car Detail (GET)
+http://127.0.0.1:8000/api/cars/1/
+Replace 1 with a valid Car ID from your database.

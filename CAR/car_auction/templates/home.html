@@ -1,0 +1,183 @@
+
+
+<style>
+    body {
+        background-image: url('/static/images/car_auction.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: #fff;
+        min-height: 100vh;
+    }
+
+    .card {
+        animation: fadeInUp 0.6s ease-in-out;
+        transition: transform 0.3s;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .container {
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        text-align: center;
+        font-weight: bold;
+        animation: fadeInUp 1s ease-in-out;
+        margin-bottom: 30px;
+    }
+</style>
+
+
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="mb-4">Car Auction</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for car in cars %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ car.title }}</h5>
+                        <p class="card-text">{{ car.description|truncatechars:100 }}</p>
+                        <p class="card-text"><strong>Starting Bid:</strong> ${{ car.starting_bid }}</p>
+                        <p class="card-text"><strong>Auction Ends:</strong> {{ car.end_auction }}</p>
+                        <a href="{% url "car_detail" car.id %}" class="btn btn-success">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No cars available for auction.</p>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<h2 class="text-center my-4">Car Gallery</h2>
+<div class="container">
+  <div class="row">
+    {% for car in cars %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm gallery-card"
+           style="cursor: pointer; transition: transform 0.3s ease;"
+           onclick="openModal(
+             '{{ car.image.url }}',
+             '{{ car.name }}',
+             '{{ car.model }}',
+             '{{ car.owner.username }}',
+             '{{ car.bidding_price }}',
+             
+           )">
+        <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.name }}</h5>
+          <p class="card-text">{{ car.model }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="carModal" class="modal fade" tabindex="-1" style="backdrop-filter: blur(4px);">
+  <div class="modal-dialog modal-dialog-centered modal-lg animate-modal">
+    <div class="modal-content shadow">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCarName"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="modalCarImage" src="" class="img-fluid mb-3 rounded shadow" style="max-height: 400px;">
+        <h6 id="modalCarModel"></h6>
+        <p id="modalCarOwner"></p>
+        <p id="modalCarBiddingPrice"></p>
+        <div id="soldInfo" style="display: none;">
+          <hr>
+          <h5 class="text-success">Sold</h5>
+          <p id="modalCarFinalPrice"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal(image, name, model, owner, biddingPrice, isSold, finalPrice) {
+    document.getElementById("modalCarImage").src = image;
+    document.getElementById("modalCarName").textContent = name;
+    document.getElementById("modalCarModel").textContent = "Model: " + model;
+    document.getElementById("modalCarOwner").textContent = "Owner: " + owner;
+    document.getElementById("modalCarBiddingPrice").textContent = "Bidding Price: ₹" + biddingPrice;
+
+    const soldSection = document.getElementById("soldInfo");
+    if (isSold === 'True') {
+      soldSection.style.display = 'block';
+      document.getElementById("modalCarFinalPrice").textContent = "Sold Price: ₹" + finalPrice;
+    } else {
+      soldSection.style.display = 'none';
+    }
+
+    new bootstrap.Modal(document.getElementById('carModal')).show();
+  }
+</script>
+
+<style>
+  .gallery-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+
+  .animate-modal {
+    animation: slideIn .4s ease-in-out;
+  }
+
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - Car Auction{% endblock %}
+
+{% block content %}
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+  body {
+    background-image: url('/static/images/contact.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .contact-wrapper {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: none;
+  }
+
+  .btn-primary {
+    transition: 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+
+  .contact-info {
+    padding: 20px;
+    border-radius: 10px;
+    background-color:rgb(255, 255, 255);
+  }
+
+  .contact-info p i {
+    margin-right: 10px;
+    color: #007bff;
+  }
+
+  .social-icons a {
+    margin: 0 10px;
+    font-size: 1.5rem;
+    color: #007bff;
+    transition: 0.3s;
+  }
+
+  .social-icons a:hover {
+    color: #0056b3;
+    transform: scale(1.2);
+  }
+
+  .map-container {
+    width: 100%;
+    height: 300px;
+    margin-top: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  }
+
+  .cta {
+    background-color: #007bff;
+    color: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .cta h4 {
+    font-weight: bold;
+  }
+</style>
+
+<div class="container contact-wrapper">
+  <h2 class="text-center mb-5" style="color:black;">Get in Touch with <span style="color:#007bff;">Car Auction</span></h2>
+  <div class="row">
+    <!-- Contact Form -->
+    <div class="col-md-7">
+      <form method="post" action="{% url 'contact' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_name" class="form-label" style="color:black;"><i class="fa fa-user"></i> Full Name</label>
+          <input type="text" class="form-control" id="id_name" name="name" placeholder="Your Name" required>
+        </div>
+        <div class="mb-3">
+          <label for="id_email" class="form-label"style="color:black;"><i class="fa fa-envelope"></i> Email Address</label>
+          <input type="email" class="form-control" id="id_email" name="email" placeholder="example@mail.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="id_message" class="form-label"style="color:black;"><i class="fa fa-message"></i> Message</label>
+          <textarea class="form-control" id="id_message" name="message" rows="4" placeholder="Type your message here..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100"style="color:black;"><i class="fa fa-paper-plane"></i> Send Message</button>
+
+        {% if success %}
+          <div class="alert alert-success mt-3"style="color:black;">Your message has been sent!</div>
+        {% endif %}
+        {% if error %}
+          <div class="alert alert-danger mt-3">{{ error }}</div>
+        {% endif %}
+      </form>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="col-md-5 contact-info mt-4 mt-md-0"style="color:black;">
+      <h5><i class="fa fa-info-circle"style="color:black;"></i style="color:black;"> Contact Info</h5>
+      <p><i class="fa fa-map-marker-alt"style="color:black;"></i style="color:black;"> Lucknow, Uttar Pradesh, India</p>
+      <p><i class="fa fa-phone-alt"style="color:black;"></i style="color:black;"> +91-XXXXXXXXXX</p>
+      <p><i class="fa fa-envelope"style="color:black;"></i style="color:black;"> support@carauction.com</p>
+      <hr>
+      <h5><i class="fa fa-clock"style="color:black;"></i style="color:black;"> Business Hours</h5>
+      <p style="color:black;">Mon – Sat: 9:00 AM – 6:00 PM</p>
+      <p style="color:black;"> Sunday: Closed</p>
+      <hr>
+      <h5><i class="fa fa-share-alt"></i style="color:black;"> Follow Us</h5>
+      <div class="social-icons">
+        <a href="https://eventbeep.page.link/iYNJ7ScFqnyQD52W8"><i class="bi bi-globe"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100030487120603"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/___v__i__b__h__u__/"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/vikas-pandey-69b568266/"><i class="bi bi-linkedIn"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Section -->
+  {% comment %} <div class="map-container mt-5">
+    <iframe src="" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+  </div> {% endcomment %}
+
+  <!-- Call to Action -->
+  <div class="cta mt-5">
+    <h4>Ready to auction or buy your next car?</h4>
+    <p>Join <strong>Car Auction</strong> today and experience the future of vehicle trading.</p>
+    <a href="{% url 'signup' %}" class="btn btn-light mt-3"><i class="fa fa-user-plus"></i> Register Now</a>
+  </div>
+</div>
+{% endblock %}

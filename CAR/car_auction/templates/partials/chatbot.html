@@ -1,0 +1,137 @@
+<!-- Add to your base template (inside <body>) -->
+<style>
+#chat-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 10000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#chatbot-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  font-family: sans-serif;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#chat-header {
+  background: #0d6efd;
+  color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#chat-messages {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+#chat-input-area {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+#chat-input-area input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+#chat-input-area button {
+  padding: 8px 12px;
+  background: #0d6efd;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+</style>
+
+<!-- Toggle button to show/hide chatbot -->
+<button id="chat-toggle-btn" onclick="toggleChat()">💬</button>
+
+<!-- Chatbot UI -->
+<div id="chatbot-container" style="color:black;">
+  <div id="chat-header">🤖 Car Auction Assistant</div>
+  <div id="chat-messages"></div>
+  <div id="chat-input-area">
+    <input type="text" id="user-input" placeholder="Ask about car auctions..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+const API_KEY = "AIzaSyD8cRehlMENlV0B9QA_w6VnFbLUU_zAWrE";
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+const chatContainer = document.getElementById("chatbot-container");
+const chatMessages = document.getElementById("chat-messages");
+const userInput = document.getElementById("user-input");
+
+function toggleChat() {
+  chatContainer.style.display = (chatContainer.style.display === "none" || chatContainer.style.display === "") ? "flex" : "none";
+}
+
+async function sendMessage() {
+  const message = userInput.value.trim();
+  if (!message) return;
+
+  appendMessage("You", message);
+  userInput.value = "";
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{ text: message }]
+        }]
+      })
+    });
+
+    const data = await response.json();
+    
+    if (data.candidates && data.candidates.length > 0) {
+      const reply = data.candidates[0].content.parts[0].text.trim();
+      appendMessage("Bot", reply);
+    } else {
+      appendMessage("Bot", "Sorry, I couldn't generate a response.");
+    }
+  } catch (error) {
+    appendMessage("Bot", "Error reaching chatbot.");
+    console.error("Chatbot API error:", error);
+  }
+}
+
+function appendMessage(sender, text) {
+  const msgDiv = document.createElement("div");
+  msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  chatMessages.appendChild(msgDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+</script>

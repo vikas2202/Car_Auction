@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Terms and Privacy - Car Auction{% endblock %}
+
+{% block content %}
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+  body {
+    background-image: url('/static/images/terms.jpg'); /* Replace with your actual image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .content-wrapper {
+    background-color: rgba(255, 255, 255, 0.97);
+    padding: 40px;
+    border-radius: 15px;
+    margin-top: 60px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    border: none;
+  }
+
+  .card h5 {
+    color: #007bff;
+    font-weight: bold;
+  }
+
+  .card ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .card ul li::before {
+    content: "\f058"; /* check-circle icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 10px;
+    color: #28a745;
+  }
+
+  .checkbox-section {
+    margin-top: 30px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+  }
+
+  .cta-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .cta-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="container content-wrapper">
+  <h2 class="text-center mb-4 text-dark"><i class="fas fa-shield-alt"></i> Terms & Conditions / Privacy Policy</h2>
+
+  <div class="card">
+    <h5><i class="fas fa-file-contract"></i> Terms & Conditions</h5>
+    <ul>
+      <li>All cars listed are subject to verification and approval.</li>
+      <li>Users must be 18+ to participate in auctions.</li>
+      <li>Winning bids are final and non-negotiable.</li>
+      <li>The platform holds no responsibility for disputes outside our system.</li>
+    </ul>
+
+    <h5 class="mt-4"><i class="fas fa-user-shield"></i> Privacy Policy</h5>
+    <p>
+      We value your privacy. Your data will never be sold or shared with third parties, except where required by law or with your permission.
+    </p>
+    <p>
+      All transactions and communication on our platform are encrypted and secure. If you have questions, contact our support.
+    </p>
+
+    <div class="checkbox-section">
+      <form method="post" action="#">
+        {% csrf_token %}
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="acceptTerms" required>
+          <label class="form-check-label" for="acceptTerms">
+            I have read and agree to the <strong>Terms & Conditions</strong>.
+          </label>
+        </div>
+        <div class="form-check mb-4">
+          <input class="form-check-input" type="checkbox" id="acceptPrivacy" required>
+          <label class="form-check-label" for="acceptPrivacy">
+            I accept the <strong>Privacy Policy</strong>.
+          </label>
+        </div>
+
+        <a href="{% url 'home' %}" class="cta-btn"><i class="fas fa-arrow-right"></i> Continue to Site</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
